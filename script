@@ -1,0 +1,248 @@
+local uis = game:GetService("UserInputService")
+local db=false
+local dh = false
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local Pattern = Instance.new("ImageLabel")
+local TextLabel = Instance.new("TextLabel")
+local name = Instance.new("TextLabel")
+local instruction1 = Instance.new("TextLabel")
+local instruction2 = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(99, 95, 98)
+Frame.BorderColor3 = Color3.fromRGB(79, 76, 78)
+Frame.BorderSizePixel = 2
+Frame.Position = UDim2.new(.5,0,.5,0)
+Frame.Size = UDim2.new(0.001,0,0.001,0)
+
+Pattern.Name = "Pattern"
+Pattern.Parent = Frame
+Pattern.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Pattern.BackgroundTransparency = 1.000
+Pattern.Size = UDim2.new(1, 0, 1, 0)
+Pattern.ZIndex = 2
+Pattern.Image = "rbxassetid://10530276"
+Pattern.ImageTransparency = 0.600
+Pattern.ScaleType = Enum.ScaleType.Tile
+Pattern.SliceCenter = Rect.new(0, 256, 0, 256)
+Pattern.TileSize = UDim2.new(0, 30, 0, 30)
+
+TextLabel.Parent = Frame
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Size = UDim2.new(1, 0, 0.296000004, 0)
+TextLabel.ZIndex = 3
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Welcome, "
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 14.000
+TextLabel.TextStrokeTransparency = 0.000
+TextLabel.TextWrapped = true
+
+name.Name = "name"
+name.Parent = Frame
+name.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+name.BackgroundTransparency = 1.000
+name.Position = UDim2.new(0, 0, 0.351999998, 0)
+name.Size = UDim2.new(1, 0, 0.296000004, 0)
+name.ZIndex = 3
+name.Font = Enum.Font.SourceSans
+name.Text = game.Players.LocalPlayer.Name
+name.TextColor3 = Color3.fromRGB(255, 255, 255)
+name.TextScaled = true
+name.TextSize = 14.000
+name.TextStrokeTransparency = 0.000
+name.TextWrapped = true
+
+instruction1.Name = "instruction1"
+instruction1.Parent = Frame
+instruction1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+instruction1.BackgroundTransparency = 1.000
+instruction1.Position = UDim2.new(0, 0, 0.680000007, 0)
+instruction1.Size = UDim2.new(1, 0, 0.159999996, 0)
+instruction1.ZIndex = 3
+instruction1.Font = Enum.Font.SourceSans
+instruction1.Text = "Delete = Turn on/off range"
+instruction1.TextColor3 = Color3.fromRGB(255, 255, 255)
+instruction1.TextScaled = true
+instruction1.TextSize = 14.000
+instruction1.TextStrokeTransparency = 0.000
+instruction1.TextWrapped = true
+
+instruction2.Name = "instruction2"
+instruction2.Parent = Frame
+instruction2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+instruction2.BackgroundTransparency = 1.000
+instruction2.Position = UDim2.new(0, 0, 0.840000033, 0)
+instruction2.Size = UDim2.new(1, 0, 0.159999996, 0)
+instruction2.ZIndex = 3
+instruction2.Font = Enum.Font.SourceSans
+instruction2.Text = "End = Turn on/off hitbox"
+instruction2.TextColor3 = Color3.fromRGB(255, 255, 255)
+instruction2.TextScaled = true
+instruction2.TextSize = 14.000
+instruction2.TextStrokeTransparency = 0.000
+instruction2.TextWrapped = true
+
+-- Introduction:
+
+Frame:TweenSizeAndPosition(UDim2.new(0.221, 0,0.306, 0), UDim2.new(0.389, 0,0.347, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 2)
+wait(5)
+Frame:TweenSizeAndPosition(UDim2.new(0.001, 0,0.001, 0), UDim2.new(0.5, 0,0.5, 0), Enum.EasingDirection.In, Enum.EasingStyle.Quad, 2)
+wait(2)
+ScreenGui:Destroy()
+
+-- Scripts:
+
+local function findTool(name)
+	if game.Players.LocalPlayer.Backpack:FindFirstChild(name) then
+		return game.Players.LocalPlayer.Backpack[name].HitPart
+	elseif game.Players.LocalPlayer.Character:FindFirstChild(name) then
+		return game.Players.LocalPlayer.Character[name].HitPart
+	else
+		print('no tool')
+	end
+end
+local function findTTool(name)
+	if game.Players.LocalPlayer.Backpack:FindFirstChild(name) then
+		return game.Players.LocalPlayer.Backpack[name].HitPart
+	elseif game.Players.LocalPlayer.Character:FindFirstChild(name) then
+		return game.Players.LocalPlayer.Character[name].HitPart
+	else
+		print('no tool')
+	end
+end
+local function box(item)
+	pcall(function()
+		local a = Instance.new("SelectionBox", item)
+		a.Adornee = item
+	end)
+end
+local function unbox(item)
+	pcall(function()
+		item.SelectionBox:Destroy()
+	end)
+end
+
+uis.InputBegan:Connect(function(key,c)
+	if c then return end
+
+	if key.KeyCode == Enum.KeyCode.Delete then
+		if not db then
+			db = true
+			pcall(function()
+				local p1 = findTool("Punch")
+				local p2 = findTool("Haymaker")
+				local p3 = findTool("Uppercut")
+				local p4 = findTool("Kick")
+				local p5 = findTTool("Punch")
+				local p6 = findTTool("Haymaker")
+				local p7 = findTTool("Uppercut")
+				local p8 = findTTool("Kick")
+
+				p1.Size = Vector3.new(3, 2, 1.1)
+				p2.Size = Vector3.new(3, 2, 1.1)
+				p3.Size = Vector3.new(3, 2, 1.1)
+				p4.Size = Vector3.new(3, 2, 1.1)
+
+				p1.Maseless = true
+				p2.Maseless = true
+				p3.Maseless = true
+				p4.Maseless = true
+
+				p5.Size = Vector3.new(3, 2, 1.1)
+				p6.Size = Vector3.new(3, 2, 1.1)
+				p7.Size = Vector3.new(3, 2, 1.1)
+				p8.Size = Vector3.new(3, 2, 1.1)
+
+				p5.Maseless = true
+				p6.Maseless = true
+				p7.Maseless = true
+				p8.Maseless = true
+			end)
+		else
+			pcall(function()
+				db = false
+				local p1 = findTool("Punch")
+				local p2 = findTool("Haymaker")
+				local p3 = findTool("Uppercut")
+				local p4 = findTool("Kick")
+
+				p1.Size = Vector3.new(1, 2, 1)
+				p2.Size = Vector3.new(1, 2, 1)
+				p3.Size = Vector3.new(1, 2, 1)
+				p4.Size = Vector3.new(1, 3, 1)
+
+				p1.Maseless = false
+				p2.Maseless = false
+				p3.Maseless = false
+				p4.Maseless = false
+			end)
+		end
+	elseif key.KeyCode == Enum.KeyCode.End then
+		if not dh then
+			dh=true
+			box(findTool("Punch"))
+			box(findTool("Haymaker"))
+			box(findTool("Kick"))
+			box(findTool("Uppercut"))
+		else
+			dh=false
+			unbox(findTool("Punch"))
+			unbox(findTool("Haymaker"))
+			unbox(findTool("Kick"))
+			unbox(findTool("Uppercut"))
+		end
+	end
+end)
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+	if db then
+		pcall(function()
+			local p1 = findTool("Punch")
+			local p2 = findTool("Haymaker")
+			local p3 = findTool("Uppercut")
+			local p4 = findTool("Kick")
+			local p5 = findTTool("Punch")
+			local p6 = findTTool("Haymaker")
+			local p7 = findTTool("Uppercut")
+			local p8 = findTTool("Kick")
+
+			p1.Size = Vector3.new(3, 2, 1.1)
+			p2.Size = Vector3.new(3, 2, 1.1)
+			p3.Size = Vector3.new(3, 2, 1.1)
+			p4.Size = Vector3.new(3, 2, 1.1)
+
+			p1.Maseless = true
+			p2.Maseless = true
+			p3.Maseless = true
+			p4.Maseless = true
+
+			p5.Size = Vector3.new(3, 2, 1.1)
+			p6.Size = Vector3.new(3, 2, 1.1)
+			p7.Size = Vector3.new(3, 2, 1.1)
+			p8.Size = Vector3.new(3, 2, 1.1)
+
+			p5.Maseless = true
+			p6.Maseless = true
+			p7.Maseless = true
+			p8.Maseless = true
+		end)
+	end
+	if dh then
+		box(findTool("Punch"))
+		box(findTool("Haymaker"))
+		box(findTool("Kick"))
+		box(findTool("Uppercut"))
+	end
+end)
+if game.Players.LocalPlayer:IsInGroup(4634159) then
+	game.Players.LocalPlayer:Kick('no fat')
+end
